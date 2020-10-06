@@ -1,3 +1,8 @@
 fn main() {
-    println!("Hello, world!");
+    println!(
+        "\n\
+        rust-benched: rust benchmarks sandbox\n\
+        \n\
+        to play, run: cargo +nightly bench\n"
+    );
 }

@@ -37,6 +37,10 @@ The Rust compiler, ideally, assembles operations identically regardless of high-
 
 For example, writing a custom "sum" function compared with a standard lib or similar function emitted as assembly would yield the same results given the same arguments and return value type. The source code or abstraction should compile to the same optimized assembly regardless of trivial variance in implementations.
 
+## References
+
+- [Rust Benchmarks](https://doc.rust-lang.org/1.2.0/book/benchmark-tests.html)
+
 ## License
 
 MIT

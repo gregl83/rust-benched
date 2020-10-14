@@ -17,5 +17,9 @@ bench = false
 criterion = "0.3"
 
 [[bench]]
-name = "example"
+name = "math"
+harness = false
+
+[[bench]]
+name = "collections_iterations"
 harness = false

@@ -12,6 +12,14 @@ Data based development decisions.
 
 ## Usage
 
+**Standard Output**
+
+```bash
+$ cargo bench
+```
+
+**Verbose Output**
+
 ```bash
 $ cargo bench -- --verbose
 ```

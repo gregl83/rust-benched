@@ -13,7 +13,7 @@ Data based development decisions.
 ## Usage
 
 ```bash
-$ cargo +nightly bench
+$ cargo bench -- --verbose
 ```
 
 ## Considerations

@@ -1,9 +1,7 @@
 use std::process::{Command, Stdio};
-use std::env;
 
 fn main() {
     Command::new("cargo")
-        .arg("+nightly")
         .arg("bench")
         .stdin(Stdio::null())
         .stdout(Stdio::inherit())

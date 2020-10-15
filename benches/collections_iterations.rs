@@ -1,10 +1,10 @@
 use criterion::{criterion_group, criterion_main, Criterion, BenchmarkId, black_box};
 
-const COLLECTION_SIZE: usize = 1_000;
+const COLLECTION_SIZE: usize = 1_000_000;
 
 #[derive(Copy, Clone)]
 struct CollectionValue {
-    inc: u16
+    inc: u32
 }
 
 impl CollectionValue {
@@ -13,42 +13,59 @@ impl CollectionValue {
             inc: 1
         }
     }
+
+    fn set_inc(&mut self, inc: u32) {
+        self.inc = inc;
+    }
 }
 
-fn iteration_array(a: &[CollectionValue; COLLECTION_SIZE]) -> u16 {
-    let mut count = 0;
+fn iteration_array(a: &[CollectionValue; COLLECTION_SIZE], delta: usize) -> u32 {
+    let mut count = delta as u32;
     for value in a.iter() {
-        count += value.inc;
+        count = value.inc;
     }
     count
 }
 
-fn iterate_vector(v: &Vec<CollectionValue>) -> u16 {
-    let mut count = 0;
+fn iterate_vector(v: &Vec<CollectionValue>, delta: usize) -> u32 {
+    let mut count = delta as u32;
     for value in v.iter() {
-        count += value.inc;
+        count = value.inc;
     }
     count
 }
 
 fn bench_collections_preallocated(c: &mut Criterion) {
     let mut group = c.benchmark_group("CollectionPreallocated");
+    let parameter = format!("[CollectionValue; {}]", COLLECTION_SIZE);
 
     {
-        let array = black_box([CollectionValue::new(); COLLECTION_SIZE]);
+        let delta = black_box(0);
+        let mut array = [CollectionValue::new(); COLLECTION_SIZE];
+        for i in 0..COLLECTION_SIZE {
+            let v = i as u32;
+            array[i].set_inc(v);
+        }
+
         group.bench_with_input(
-            BenchmarkId::new("Array", "[CollectionValue; n]"),
+            BenchmarkId::new("Array", &parameter),
             &array,
-            |b, i| b.iter(|| iteration_array(i))
+            |b, i| b.iter(|| iteration_array(i, delta))
         );
     }
 
     {
-        let vector = black_box(vec![CollectionValue::new(); COLLECTION_SIZE]);
+        let delta = black_box(0);
+        let mut vector = vec![CollectionValue::new(); COLLECTION_SIZE];
+        for i in 0..COLLECTION_SIZE {
+            let v = i as u32;
+            vector[i].set_inc(v);
+        }
+
         group.bench_with_input(
-            BenchmarkId::new("Vector", "[CollectionValue; n]"),
+            BenchmarkId::new("Vector", &parameter),
             &vector,
-            |b, i| b.iter(|| iterate_vector(i))
+            |b, i| b.iter(|| iterate_vector(i, delta))
         );
     }
 

@@ -1,22 +1,32 @@
 use criterion::{criterion_group, criterion_main, Criterion, BenchmarkId, black_box};
 
-const COLLECTION_SIZE: usize = 1_000_000_000;
+const COLLECTION_SIZE: usize = 1_000;
 
 #[derive(Copy, Clone)]
-struct CollectionValue { }
+struct CollectionValue {
+    inc: u32
+}
 
-fn iteration_array(a: &[CollectionValue; COLLECTION_SIZE]) -> i32 {
+impl CollectionValue {
+    fn new() -> Self {
+        CollectionValue {
+            inc: 1
+        }
+    }
+}
+
+fn iteration_array(a: &[CollectionValue; COLLECTION_SIZE]) -> u32 {
     let mut count = 0;
-    for _ in a.iter() {
-        count += 1;
+    for value in a.iter() {
+        count += value.inc;
     }
     count
 }
 
-fn iterate_vector(v: &Vec<CollectionValue>) -> i32 {
+fn iterate_vector(v: &Vec<CollectionValue>) -> u32 {
     let mut count = 0;
-    for _ in v.iter() {
-        count += 1;
+    for value in v.iter() {
+        count += value.inc;
     }
     count
 }
@@ -24,19 +34,24 @@ fn iterate_vector(v: &Vec<CollectionValue>) -> i32 {
 fn bench_collections_preallocated(c: &mut Criterion) {
     let mut group = c.benchmark_group("CollectionPreallocated");
 
-    let array = black_box([CollectionValue{}; COLLECTION_SIZE]);
-    group.bench_with_input(
-        BenchmarkId::new("Array", "[CollectionValue; n]"),
-        &array,
-        |b, i| b.iter(|| iteration_array(i))
-    );
+    {
+        let array = black_box([CollectionValue::new(); COLLECTION_SIZE]);
+        group.bench_with_input(
+            BenchmarkId::new("Array", "[CollectionValue; n]"),
+            &array,
+            |b, i| b.iter(|| iteration_array(i))
+        );
+    }
 
-    let vector = black_box(vec![CollectionValue{}; COLLECTION_SIZE]);
-    group.bench_with_input(
-        BenchmarkId::new("Vector", "[CollectionValue; n]"),
-        &vector,
-        |b, i| b.iter(|| iterate_vector(i))
-    );
+    {
+        let vector = black_box(vec![CollectionValue::new(); COLLECTION_SIZE]);
+        group.bench_with_input(
+            BenchmarkId::new("Vector", "[CollectionValue; n]"),
+            &vector,
+            |b, i| b.iter(|| iterate_vector(i))
+        );
+    }
+
     group.finish();
 }
 

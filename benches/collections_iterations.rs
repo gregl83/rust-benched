@@ -4,7 +4,7 @@ const COLLECTION_SIZE: usize = 1_000;
 
 #[derive(Copy, Clone)]
 struct CollectionValue {
-    inc: u32
+    inc: u16
 }
 
 impl CollectionValue {
@@ -15,7 +15,7 @@ impl CollectionValue {
     }
 }
 
-fn iteration_array(a: &[CollectionValue; COLLECTION_SIZE]) -> u32 {
+fn iteration_array(a: &[CollectionValue; COLLECTION_SIZE]) -> u16 {
     let mut count = 0;
     for value in a.iter() {
         count += value.inc;
@@ -23,7 +23,7 @@ fn iteration_array(a: &[CollectionValue; COLLECTION_SIZE]) -> u32 {
     count
 }
 
-fn iterate_vector(v: &Vec<CollectionValue>) -> u32 {
+fn iterate_vector(v: &Vec<CollectionValue>) -> u16 {
     let mut count = 0;
     for value in v.iter() {
         count += value.inc;

@@ -4,11 +4,11 @@ Rust Benchmarks repository.
 
 The intent of this repository is to provide proofs, using benchmarks, that solutions to common logical operations are optimal.
 
-Rust has emerged as a low-level language with intent of solving problems traditionally encountered using C/C++ without sacrificing performance. Notably, memory safety and ease-of-use.
+Rust has emerged as a popular systems language with intent of solving problems that traditionally relied on C/C++. Memory safety and zero-cost abstractions promise to deliver optimized applications reaching physical computation limits.
 
 In many ways, Rust is C++ re-imagined. 
 
-Data based development decisions.
+Testing provides data based development decisions.
 
 ## Usage
 

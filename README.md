@@ -47,11 +47,15 @@ For example, writing a custom "sum" function compared with a standard lib or sim
 
 Abstractions can be compared by compiling source code as assembly:
 
-`cargo rustc -- --emit asm`
+```bash
+cargo rustc -- --emit asm
+```
 
 Release optimized assembly:
 
-`cargo rustc --release -- --emit asm`
+```bash
+cargo rustc --release -- --emit asm
+```
 
 ## References
 

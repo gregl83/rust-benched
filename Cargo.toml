@@ -12,12 +12,17 @@ path = "src/main.rs"
 bench = false
 
 [dependencies]
+crossbeam = "0.8"
 
 [dev-dependencies]
 criterion = "0.3"
 
 [[bench]]
 name = "math"
+harness = false
+
+[[bench]]
+name = "array_io"
 harness = false
 
 [[bench]]
